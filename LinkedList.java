@@ -11,8 +11,11 @@ public class LinkedList {
 
     public static Node head;
     public static Node tail;
+    public static int size; // size is not used in this implementation but can be useful for other
+                            // operations
 
     public void addFirst(int data) {
+        size++;
         // step 1: create new node
         Node newNode = new Node(data);
         if (head == null) {
@@ -28,6 +31,7 @@ public class LinkedList {
     }
 
     public void addLast(int data) {
+        size++;
         Node newNode = new Node(data);
         if (head == null) {
             head = tail = newNode;
@@ -58,6 +62,7 @@ public class LinkedList {
             return;
         }
         Node newNode = new Node(data);
+        size++;
         Node temp = head;
         int i = 0;
         while (i < idx - 1) {
@@ -70,6 +75,44 @@ public class LinkedList {
 
     }
 
+    public int removeFirst() {
+        if (size == 0) {
+            System.out.println("Linked list is empty");
+            return Integer.MIN_VALUE; // or throw an exception
+        } else if (size == 1) {
+            int val = head.data;
+            head = tail = null; // If it was the only element, set head and tail to null
+            size = 0; // Update size
+            return val;
+        }
+        int val = head.data;
+        head = head.next;
+        size--; // Decrease the size of the linked list
+        return val;
+    }
+
+    // Method to remove the last element (not implemented in the original code)
+    public int removeLast() {
+        if (size == 0) {
+            System.out.println("Linked list is empty");
+            return Integer.MIN_VALUE; // or throw an exception
+        } else if (size == 1) {
+            int val = head.data;
+            head = tail = null; // If it was the only element, set head and tail to null
+            size = 0; // Update size
+            return val;
+        }
+        Node prev = head;
+        for (int i = 0; i < size - 2; i++) {
+            prev = prev.next; // Traverse to the second last node
+        }
+        int val = prev.next.data; // Get the value of the last node
+        prev.next = null; // Remove the last node
+        tail = prev; // Update tail to the second last node
+        size--; // Decrease the size of the linked list
+        return val; // Return the value of the removed last node.
+    }
+
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
         // ll.printList();
@@ -77,11 +120,18 @@ public class LinkedList {
         // ll.printList();
         ll.addFirst(1);
         // ll.printList();
-        ll.addLast(3);
-        // ll.printList();
         ll.addLast(4);
-        ll.add(2, 9);
+        // ll.printList();
+        ll.addLast(5);
+        ll.add(2, 3);
         ll.printList();
+        System.out.println(ll.size); // Print the size of the linked list
+        System.out.println(ll.removeFirst()); // Remove the first element and print it
+        ll.printList(); // Print the linked list after removing the first element
 
+        System.out.println(ll.size); // Print the size of the linked list
+        System.out.println(ll.removeLast()); // Remove the last element and print it
+        ll.printList(); // Print the linked list after removing the last element
+        System.out.println(ll.size); // Print the size of the linked list
     }
 }
