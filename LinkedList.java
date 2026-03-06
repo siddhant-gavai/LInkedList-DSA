@@ -1,7 +1,8 @@
 public class LinkedList {
-    public static class Node {
-        int data;
-        Node next;
+    public static class Node { // Node class to represent each element in the linked list
+        // Each node contains data and a reference to the next node
+        int data; // Data part of the node
+        Node next; // Reference to the next node in the linked lists
 
         public Node(int data) {
             this.data = data;
@@ -113,6 +114,35 @@ public class LinkedList {
         return val; // Return the value of the removed last node.
     }
 
+    public int itrSearch(int key) {
+        Node temp = head;
+        int i = 0;
+        while (temp != null) {
+            if (temp.data == key) {
+                return i; // Return the index if the key is found
+            }
+            temp = temp.next;
+            i++;
+        }
+        return -1; // Return -1 if the key is not found
+    }
+
+    public void reverse() {
+        if (head == null || head.next == null) {
+            return; // If the list is empty or has only one element, no need to reverse
+        }
+        Node prev = null; // Initialize previous node as null
+        Node curr = tail = head;
+        Node next; // Initialize next node
+        while (curr != null) {
+            next = curr.next; // Store the next node
+            curr.next = prev; // Reverse the link
+            prev = curr; // Move prev to current node
+            curr = next; // Move to the next node
+        }
+        head = prev; // Update head to the new first node
+    }
+
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
         // ll.printList();
@@ -126,12 +156,17 @@ public class LinkedList {
         ll.add(2, 3);
         ll.printList();
         System.out.println(ll.size); // Print the size of the linked list
-        System.out.println(ll.removeFirst()); // Remove the first element and print it
-        ll.printList(); // Print the linked list after removing the first element
+        // System.out.println(ll.removeFirst()); // Remove the first element and print
+        // it
+        // ll.printList(); // Print the linked list after removing the first element
 
-        System.out.println(ll.size); // Print the size of the linked list
-        System.out.println(ll.removeLast()); // Remove the last element and print it
-        ll.printList(); // Print the linked list after removing the last element
-        System.out.println(ll.size); // Print the size of the linked list
+        // System.out.println(ll.size); // Print the size of the linked list
+        // System.out.println(ll.removeLast()); // Remove the last element and print it
+        // ll.printList(); // Print the linked list after removing the last element
+        // System.out.println(ll.size); // Print the size of the linked list
+        System.out.println(ll.itrSearch(3)); // Search for the element 3 and print its index
+        System.out.println(ll.itrSearch(6)); // Search for the element 6 (not in the list) and print its index
+        ll.reverse();
+        ll.printList();
     }
 }

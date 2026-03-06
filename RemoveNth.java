@@ -61,31 +61,25 @@ public class RemoveNth {
 
     // 🔥 remove nth node from end
     public void removeNthFromEnd(int n) {
-
-        // case 1: remove head
+        // step 1: calculate size
+        int size = 0;
+        Node temp = head;
+        while (temp != null) {
+            temp = temp.next;
+            size++;
+        }
+        // if n is header node
         if (n == size) {
-            head = head.next;
-            size--;
+            head = head.next; // remove first node
             return;
         }
-
-        // step 1: find previous node index
-        int idxToFind = size - n;
+        // step 2: find (size - n)th node
+        int i = 1;
         Node prev = head;
-
-        for (int i = 1; i < idxToFind; i++) {
+        while (i < size - n) {
             prev = prev.next;
+            i++;
         }
-
-        // step 2: remove node
-        prev.next = prev.next.next;
-
-        // step 3: update tail if needed
-        if (prev.next == null) {
-            tail = prev;
-        }
-
-        size--;
     }
 
     // main method
